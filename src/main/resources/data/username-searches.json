@@ -1,0 +1,610 @@
+[
+	{
+		"name": "about.me",
+		"url": "https://about.me/{account}",
+		"t-code": 200,
+		"t-body": "| about.me</title>",
+		"f-code": 404,
+		"f-body": "<title>about.me</title>"
+	},
+	{
+		"name": "allmylinks",
+		"url": "https://allmylinks.com/{account}",
+		"t-code": 200,
+		"t-body": " | AllMyLinks</title>",
+		"f-code": 404,
+		"f-body": "<title>Not Found</title>"
+	},
+	{
+		"name": "Arduino Project Hub",
+		"url": "https://projecthub.arduino.cc/{account}",
+		"t-code": 200,
+		"t-body": " | Arduino Project Hub</title>",
+		"f-code": 200,
+		"f-body": "<title>Arduino Project Hub</title>"
+	},
+	{
+		"name": "Audiojungle",
+		"url": "https://audiojungle.net/user/{account}",
+		"t-code": 200,
+		"t-body": " profile on AudioJungle</title>",
+		"f-code": 404,
+		"f-body": "<title>Page Not Found | AudioJungle</title>"
+	},
+	{
+		"name": "Behance",
+		"url": "https://www.behance.net/{account}",
+		"t-code": 200,
+		"t-body": "<title>Behance</title>",
+		"f-code": 404,
+		"f-body": "<title>Oops! We can’t find that page. :: Behance</title>"
+	},
+	{
+		"name": "Bitbucket",
+		"url": "https://bitbucket.org/{account}/workspace/repositories/",
+		"t-code": 200,
+		"t-body": "<title>Bitbucket</title>",
+		"f-code": 404,
+		"f-body": "<title>404 &mdash; Bitbucket</title>"
+	},
+	{
+		"name": "Bluesky",
+		"url": "https://bsky.app/profile/{account}",
+		"t-code": 200,
+		"t-body": " on Bluesky</title>",
+		"f-code": 200,
+		"f-body": "<title>Bluesky</title>"
+	},
+	{
+		"name": "Buy Me A Coffee",
+		"url": "https://buymeacoffee.com/{account}",
+		"t-code": 200,
+		"t-body": " - Buymeacoffee</title>",
+		"f-code": 404,
+		"f-body": "<title inertia>Not found | Buy Me a Coffee - Buymeacoffee</title>"
+	},
+	{
+		"name": "BuzzFeed",
+		"url": "https://www.buzzfeed.com/{account}",
+		"t-code": 200,
+		"t-body": " on BuzzFeed</title>",
+		"f-code": 404,
+		"f-body": "<title>Page Not Found</title>"
+	},
+	{
+		"name": "Chess.com",
+		"url": "https://www.chess.com/member/{account}",
+		"t-code": 200,
+		"t-body": " - Chess Profile - Chess.com</title>",
+		"f-code": 404,
+		"f-body": "<title>Missing Page - Chess.com</title>"
+	},
+	{
+		"name": "Cults 3d",
+		"url": "https://cults3d.com/en/users/{account}",
+		"t-code": 200,
+		"t-body": "All the 3D models of ",
+		"f-code": 404,
+		"f-body": "<title>Oh dear, this page is not working!・Cults</title>"
+	},
+	{
+		"name": "Dev.to",
+		"url": "https://dev.to/{account}",
+		"t-code": 200,
+		"t-body": " - DEV Community</title>",
+		"f-code": 404,
+		"f-body": "<title>The page you were looking for doesn't exist (404)</title>"
+	},
+	{
+		"name": "devRant",
+		"url": "https://devrant.com/users/{account}",
+		"t-code": 200,
+		"t-body": "Joined devRant on ",
+		"f-code": 200,
+		"f-body": "Join a fun community of developers"
+	},
+	{
+		"name": "Discourse",
+		"url": "https://meta.discourse.org/u/{account}",
+		"t-code": 200,
+		"t-body": "<title>  Profile - ",
+		"f-code": 404,
+		"f-body": "<title>Page Not Found - Discourse Meta</title>"
+	},
+	{
+		"name": "Docker Hub",
+		"url": "https://hub.docker.com/v2/users/{account}/",
+		"t-code": 200,
+		"t-body": "uuid",
+		"f-code": 404,
+		"f-body": "User not found"
+	},
+	{
+		"name": "Duolingo",
+		"url": "https://www.duolingo.com/profile/{account}",
+		"t-code": 200,
+		"t-body": " on Duolingo\"",
+		"f-code": 404,
+		"f-body": "content=\"Duolingo - Learn a language for free @duolingo\""
+	},
+	{
+		"name": "eBay",
+		"url": "https://www.ebay.com/usr/{account}",
+		"t-code": 200,
+		"t-body": " on eBay</title>",
+		"f-code": 200,
+		"f-body": "eBay Home</title>"
+	},
+	{
+		"name": "Etsy",
+		"url": "https://www.etsy.com/people/{account}",
+		"t-code": 200,
+		"t-body": "'s favorite items - Etsy</title>",
+		"f-code": 404,
+		"f-body": "<title>Etsy - Your place to buy and sell all things handmade, vintage, and supplies</title>"
+	},
+	{
+		"name": "Facebook",
+		"url": "https://www.facebook.com/{account}",
+		"t-code": 200,
+		"t-body": "XCometProfileVanityController",
+		"f-code": 200,
+		"f-body": "XCometVanityURLController"
+	},
+	{
+		"name": "Fandom",
+		"url": "https://www.fandom.com/u/{account}",
+		"t-code": 200,
+		"t-body": " | Profile | Fandom</title>",
+		"f-code": 404,
+		"f-body": "<title>Not Found</title>"
+	},
+	{
+		"name": "Fiverr",
+		"url": "https://www.fiverr.com/{account}",
+		"t-code": 200,
+		"t-body": " | Profile | Fiverr</title>",
+		"f-code": 404,
+		"f-body": "<title>Page not found - Fiverr</title>"
+	},
+	{
+		"name": "Flickr",
+		"url": "https://flickr.com/people/{account}",
+		"t-code": 200,
+		"t-body": " | Flickr</title>",
+		"f-code": 404,
+		"f-body": "<title>Flickr</title>"
+	},
+	{
+		"name": "Freelancer",
+		"url": "https://www.freelancer.com/u/{account}",
+		"t-code": 200,
+		"t-body": "Profile | Freelancer</title>",
+		"f-code": 404,
+		"f-body": "<title>Freelancer</title>"
+	},
+	{
+		"name": "Garmin Connect",
+		"url": "https://connect.garmin.com/modern/profile/{account}",
+		"t-code": 200,
+		"t-body": "window.ERROR_VIEW = null;",
+		"f-code": 200,
+		"f-body": "window.ERROR_VIEW = \"resourceNotFoundRoute\";"
+	},
+	{
+		"name": "GeeksForGeeks",
+		"url": "https://www.geeksforgeeks.org/user/{account}",
+		"t-code": 200,
+		"t-body": " |  GeeksforGeeks Profile</title>",
+		"f-code": 404,
+		"f-body": "<title>Page Not Found - GeeksforGeeks</title>"
+	},
+	{
+		"name": "Giphy",
+		"url": "https://giphy.com/channel/{account}",
+		"t-code": 200,
+		"t-body": "GIFs - Find &amp; Share on GIPHY</title>",
+		"f-code": 404,
+		"f-body": "<title>404 Not Found</title>"
+	},
+	{
+		"name": "Giters",
+		"url": "https://giters.com/{account}",
+		"t-code": 200,
+		"t-body": " - Giters</title>",
+		"f-code": 404,
+		"f-body": "<title>404: This page could not be found</title>"
+	},
+	{
+		"name": "GitHub",
+		"url": "https://github.com/{account}",
+		"t-code": 200,
+		"t-body": " · GitHub</title>",
+		"f-code": 404,
+		"f-body": "Not Found"
+	},
+	{
+		"name": "GitLab",
+		"url": "https://gitlab.com/{account}",
+		"t-code": 200,
+		"t-body": " · GitLab</title>",
+		"f-code": 403,
+		"f-body": "<title>Just a moment...</title>"
+	},
+	{
+		"name": "Hackaday",
+		"url": "https://hackaday.io/{account}",
+		"t-code": 200,
+		"t-body": "'s Profile | Hackaday.io</title>",
+		"f-code": 404,
+		"f-body": "<title>Not Found | Hackaday.io</title>"
+	},
+	{
+		"name": "Hacker News",
+		"url": "https://news.ycombinator.com/user?id={account}",
+		"t-code": 200,
+		"t-body": " | Hacker News</title>",
+		"f-code": 200,
+		"f-body": "No such user."
+	},
+	{
+		"name": "Hugging Face",
+		"url": "https://huggingface.co/{account}",
+		"t-code": 200,
+		"t-body": "Follow</button>",
+		"f-code": 404,
+		"f-body": "<title>404 – Hugging Face</title>"
+	},
+	{
+		"name": "Imgur",
+		"url": "https://api.imgur.com/account/v1/accounts/{account}?client_id=546c25a59c58ad7&include=trophies%2Cmedallions",
+		"t-code": 200,
+		"t-body": "created_at",
+		"f-code": 404,
+		"f-body": "unable to find account"
+	},
+	{
+		"name": "Instagram",
+		"url": "https://instagram.com/{account}",
+		"t-code": 200,
+		"t-body": " • Instagram photos and videos</title>",
+		"f-code": 200,
+		"f-body": "<title>Instagram</title>"
+	},
+	{
+		"name": "itch.io",
+		"url": "https://itch.io/profile/{account}",
+		"t-code": 200,
+		"t-body": " - itch.io</title>",
+		"f-code": 404,
+		"f-body": "<title>itch.io</title>"
+	},
+	{
+		"name": "Kaggle",
+		"url": "https://www.kaggle.com/{account}",
+		"t-code": 200,
+		"t-body": " | Kaggle</title>",
+		"f-code": 404,
+		"f-body": "<title>Kaggle: Your Home for Data Science</title>"
+	},
+	{
+		"name": "Keybase",
+		"url": "https://keybase.io/{account}",
+		"t-code": 200,
+		"t-body": " | Keybase</title>",
+		"f-code": 404,
+		"f-body": "404 - sorry, not found."
+	},
+	{
+		"name": "Kickstarter",
+		"url": "https://www.kickstarter.com/profile/{account}",
+		"t-code": 200,
+		"t-body": "&mdash; Kickstarter\n</title>",
+		"f-code": 404,
+		"f-body": "404 - sorry, not found."
+	},
+	{
+		"name": "Ko-Fi",
+		"url": "https://ko-fi.com/{account}",
+		"t-code": 200,
+		"t-body": "aboutTab",
+		"f-code": 200,
+		"f-body": "A million creators have a home on Ko-fi!"
+	},
+	{
+		"name": "lichess",
+		"url": "https://lichess.org/@/{account}",
+		"t-code": 200,
+		"t-body": " : Activity • lichess.org</title>",
+		"f-code": 404,
+		"f-body": "<title>No such player • lichess.org</title>"
+	},
+	{
+		"name": "Linktree",
+		"url": "https://linktr.ee/{account}",
+		"t-code": 200,
+		"t-body": " | Linktree</title>",
+		"f-code": 200,
+		"f-body": "\"statusCode\":404"
+	},
+	{
+		"name": "Mastodon API",
+		"url": "https://mastodon.social/api/v2/search?q={account}&limit=1&type=accounts",
+		"t-code": 200,
+		"t-body": "\"id\":",
+		"f-code": 200,
+		"f-body": "\"accounts\":[]"
+	},
+	{
+		"name": "MCName (Minecraft)",
+		"url": "https://mcname.info/en/search?q={account}",
+		"t-code": 200,
+		"t-body": "<p>Name currently in use</p>",
+		"f-code": 200,
+		"f-body": "<p>Wrong input</p>"
+	},
+	{
+		"name": "Minecraft List (Recently Played Servers)",
+		"url": "https://minecraftlist.com/players/{account}",
+		"t-code": 200,
+		"t-body": "was seen on",
+		"f-code": 200,
+		"f-body": "0 Minecraft servers"
+	},
+	{
+		"name": "MySpace",
+		"url": "https://myspace.com/{account}",
+		"t-code": 200,
+		"t-body": "<!-- Profile -->",
+		"f-code": 404,
+		"f-body": "<!-- 404 -->"
+	},
+	{
+		"name": "OpenStreetMap",
+		"url": "https://www.openstreetmap.org/user/{account}",
+		"t-code": 200,
+		"t-body": " | OpenStreetMap</title>",
+		"f-code": 404,
+		"f-body": "<title>No such user | OpenStreetMap</title>"
+	},
+	{
+		"name": "Pastebin",
+		"url": "https://pastebin.com/u/{account}",
+		"t-code": 200,
+		"t-body": "&#039;s Pastebin - Pastebin.com</title>",
+		"f-code": 404,
+		"f-body": "<title>Pastebin.com - Not Found (#404)</title>"
+	},
+	{
+		"name": "Patreon",
+		"url": "https://www.patreon.com/{account}",
+		"t-code": 200,
+		"t-body": "[\"Joined \",[\"joined\"]]",
+		"f-code": 404,
+		"f-body": "<title>Not found | Patreon</title>"
+	},
+	{
+		"name": "PayPal",
+		"url": "https://www.paypal.com/paypalme/{account}",
+		"t-code": 200,
+		"t-body": "userInfo",
+		"f-code": 404,
+		"f-body": "https://www.paypalobjects.com/web/res/errors"
+	},
+	{
+		"name": "Picsart",
+		"url": "https://picsart.com/u/{account}",
+		"t-code": 200,
+		"t-body": "Profiles on Picsart</title>",
+		"f-code": 404,
+		"f-body": "<title>Page not found</title>"
+	},
+	{
+		"name": "Pinterest",
+		"url": "https://www.pinterest.com/{account}",
+		"t-code": 200,
+		"t-body": " - Profile | Pinterest</title>",
+		"f-code": 200,
+		"f-body": "<title></title>"
+	},
+	{
+		"name": "PlayStation Network",
+		"url": "https://psnprofiles.com/{account}",
+		"t-code": 200,
+		"t-body": "&#039;s PSN Profile  • PSNProfiles.com</title>",
+		"f-code": 200,
+		"f-body": "<title>PSNProfiles • PSN Trophy Tracking, Stats, Guides &amp; Leaderboards </title>"
+	},
+	{
+		"name": "PyPI",
+		"url": "https://pypi.org/user/{account}",
+		"t-code": 200,
+		"t-body": "<title>Profile of ",
+		"f-code": 404,
+		"f-body": "<title>Page Not Found (404) · PyPI</title>"
+	},
+	{
+		"name": "Quizlet",
+		"url": "https://quizlet.com/user/{account}/sets",
+		"t-code": 200,
+		"t-body": "&#x27;s Profile | Quizlet</title>",
+		"f-code": 404,
+		"f-body": "\"statusCode\":404"
+	},
+	{
+		"name": "Quora",
+		"url": "https://www.quora.com/profile/{account}",
+		"t-code": 200,
+		"t-body": " - Quora</title>",
+		"f-code": 404,
+		"f-body": "<title>Error</title>"
+	},
+	{
+		"name": "Reddit",
+		"url": "https://www.reddit.com/user/{account}/about/.json",
+		"t-code": 200,
+		"t-body": "id",
+		"f-code": 404,
+		"f-body": "Not Found"
+	},
+	{
+		"name": "Repl.it",
+		"url": "https://replit.com/@{account}",
+		"t-code": 200,
+		"t-body": " - Replit</title>",
+		"f-code": 404,
+		"f-body": "User not found"
+	},
+	{
+		"name": "Roblox",
+		"url": "https://auth.roblox.com/v1/usernames/validate?username={account}&birthday=2019-12-31T23:00:00.000Z",
+		"t-code": 200,
+		"t-body": "1,",
+		"f-code": 200,
+		"f-body": "0,"
+	},
+	{
+		"name": "Scratch",
+		"url": "https://scratch.mit.edu/users/{account}",
+		"t-code": 200,
+		"t-body": " on Scratch</title>",
+		"f-code": 404,
+		"f-body": "<title>Scratch - Imagine, Program, Share</title>"
+	},
+	{
+		"name": "Snapchat",
+		"url": "https://www.snapchat.com/add/{account}",
+		"t-code": 200,
+		"t-body": " | Snapchat Stories, Spotlight &amp; Lenses</title>",
+		"f-code": 404,
+		"f-body": "<title data-react-helmet=\"true\">Snapchat</title>"
+	},
+	{
+		"name": "Solo.to",
+		"url": "https://solo.to/{account}",
+		"t-code": 200,
+		"t-body": "profile-name",
+		"f-code": 404,
+		"f-body": "<title>Not Found · solo.to</title>"
+	},
+	{
+		"name": "SoundCloud",
+		"url": "https://soundcloud.com/{account}",
+		"t-code": 200,
+		"t-body": " music | Listen to songs, albums, playlists for free on SoundCloud</title>",
+		"f-code": 404,
+		"f-body": "<title>SoundCloud - Hear the world’s sounds</title>"
+	},
+	{
+		"name": "Speedrun.com",
+		"url": "https://www.speedrun.com/users/{account}",
+		"t-code": 200,
+		"t-body": ">Runs</div>",
+		"f-code": 404,
+		"f-body": "<title>Not found - Speedrun.com</title>"
+	},
+	{
+		"name": "Spotify",
+		"url": "https://open.spotify.com/user/{account}",
+		"t-code": 200,
+		"t-body": " on Spotify</title>",
+		"f-code": 404,
+		"f-body": "<title>Page not found</title>"
+	},
+	{
+		"name": "Steam",
+		"url": "https://steamcommunity.com/id/{account}",
+		"t-code": 200,
+		"t-body": "g_rgProfileData",
+		"f-code": 200,
+		"f-body": "<title>Steam Community :: Error</title>"
+	},
+	{
+		"name": "Telegram",
+		"url": "https://t.me/{account}",
+		"t-code": 200,
+		"t-body": "tgme_page_title",
+		"f-code": 200,
+		"f-body": "If you have <strong>Telegram</strong>, you can contact"
+	},
+	{
+		"name": "Tenor",
+		"url": "https://tenor.com/users/{account}",
+		"t-code": 200,
+		"t-body": "&#039;s GIFs on Tenor</title>",
+		"f-code": 404,
+		"f-body": "404 Error</title>"
+	},
+	{
+		"name": "TikTok",
+		"url": "https://www.tiktok.com/oembed?url=https://www.tiktok.com/@{account}",
+		"t-code": 200,
+		"t-body": "author_url",
+		"f-code": 400,
+		"f-body": "Something went wrong"
+	},
+	{
+		"name": "Trello",
+		"url": "https://trello.com/1/Members/{account}?fields=activityBlocked,avatarUrl,bio,bioData,confirmed,fullName,idEnterprise,idMemberReferrer,initials,memberType,nonPublic,products,url,username",
+		"t-code": 200,
+		"t-body": "avatarUrl",
+		"f-code": 404,
+		"f-body": "model not found"
+	},
+	{
+		"name": "Twitch",
+		"url": "https://twitchtracker.com/{account}",
+		"t-code": 200,
+		"t-body": " - Streamer Overview &amp; Stats · TwitchTracker</title>",
+		"f-code": 404,
+		"f-body": "<title>404 Page Not Found · TwitchTracker</title>"
+	},
+	{
+		"name": "Twitter",
+		"url": "https://nitter.privacydev.net/{account}",
+		"t-code": 200,
+		"t-body": "Tweets",
+		"f-code": 404,
+		"f-body": "<title>Error | nitter</title>"
+	},
+	{
+		"name": "Unsplash",
+		"url": "https://unsplash.com/@{account}",
+		"t-code": 200,
+		"t-body": " | Unsplash Photo Community</title>",
+		"f-code": 404,
+		"f-body": "<title data-rh=\"true\">Page not found | Unsplash</title>"
+	},
+	{
+		"name": "Venmo",
+		"url": "https://account.venmo.com/u/{account}",
+		"t-code": 200,
+		"t-body": "profileInfo_username__",
+		"f-code": 404,
+		"f-body": "<title>Venmo | Page Not Found</title>"
+	},
+	{
+		"name": "Vimeo",
+		"url": "https://vimeo.com/{account}",
+		"t-code": 200,
+		"t-body": " is a member of Vimeo",
+		"f-code": 404,
+		"f-body": "<title>VimeUhOh</title>"
+	},
+	{
+		"name": "Xbox",
+		"url": "https://xboxgamertag.com/search/{account}",
+		"t-code": 200,
+		"t-body": " - Xbox Gamertag</title>",
+		"f-code": 404,
+		"f-body": "<title>Xbox Gamertag - Search Xbox Live Profiles, Xbox Clips, Gamertags, Gamertag Suggestions, Xbox Tracker &\n            More</title>"
+	},
+	{
+		"name": "YouTube",
+		"url": "https://www.youtube.com/@{account}",
+		"t-code": 200,
+		"t-body": " - YouTube</title>",
+		"f-code": 404,
+		"f-body": "<title>404 Not Found</title>"
+	}
+]
