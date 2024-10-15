@@ -1,4 +1,4 @@
-package ktOSINT
+package io.github.ktosint
 
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
