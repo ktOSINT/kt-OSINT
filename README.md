@@ -11,7 +11,7 @@ Unfortunately, it is incredibly difficult to create and publish Kotlin packages 
 |E-Mail|❌|
 
 ## Current and planned projects
-- ktOSINT API
+- [ktOSINT API](https://github.com/ktOSINT/API)
   - ktOSINT being hosted with a REST API
 - ktOSINT Android App
   - An Android app that lets you run various functions of ktOSINT on the go
