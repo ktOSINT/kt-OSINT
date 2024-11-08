@@ -6,9 +6,9 @@ Unfortunately, it is incredibly difficult to create and publish Kotlin packages 
 
 ## Currently implemented frameworks
 |Framework Name|Implemented?|
-|:---|:----:|
-|Username|✅|
-|E-Mail|❌|
+|:---|:---:|
+|Username|✔️|
+|E-Mail|✔️|
 
 ## Current and planned projects
 - [ktOSINT API](https://github.com/ktOSINT/API)
