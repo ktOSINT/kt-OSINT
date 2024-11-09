@@ -155,12 +155,12 @@ class Email(var email: String) {
     }
 }
 
-@TestOnly
-fun main() {
-    val email = "someone@gmail.com"
-    val obj = Email(email)
-    val final = obj.Reacher()
-    println(final)
-    val mbv = obj.MBoxValid(key = "ENTER_API_KEY_HERE")
-    println(mbv.toString())
-}
+//@TestOnly
+//fun main() {
+//    val email = "someone@gmail.com"
+//    val obj = Email(email)
+//    val final = obj.Reacher()
+//    println(final)
+//    val mbv = obj.MBoxValid(key = "ENTER_API_KEY_HERE")
+//    println(mbv.toString())
+//}
