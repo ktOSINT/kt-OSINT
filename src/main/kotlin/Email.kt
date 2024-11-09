@@ -129,12 +129,38 @@ class Email(var email: String) {
 
         return final
     }
+
+    fun MBoxValid(key: String): JsonObject {
+        /*
+        Get API key here: https://www.mailboxvalidator.com/plans#api
+        The free plan includes 300 queries per month
+         */
+        val res: HttpResponse
+        val data: JsonObject
+        runBlocking {
+            val client = HttpClient(CIO)
+            res = client.get("https://api.mailboxvalidator.com/v2/validation/single") {
+                parameter("email", email)
+                parameter("key", key)
+            }
+            val sb = StringBuilder()
+            sb.append(res.body<String>())
+            data = Parser.default().parse(sb) as JsonObject
+        }
+        if (data.obj("error") == null) {
+            return data
+        } else {
+            throw IllegalArgumentException("Key was not valid")
+        }
+    }
 }
 
-//@TestOnly
-//fun main() {
-//    val email = "someone@gmail.com"
-//    val obj = Email(email)
-//    val final = obj.Reacher()
-//    println(final)
-//}
+@TestOnly
+fun main() {
+    val email = "someone@gmail.com"
+    val obj = Email(email)
+    val final = obj.Reacher()
+    println(final)
+    val mbv = obj.MBoxValid(key = "ENTER_API_KEY_HERE")
+    println(mbv.toString())
+}
