@@ -131,9 +131,9 @@ class Email(var email: String) {
     }
 
     fun MBoxValid(key: String): JsonObject {
-        /*
-        Get API key here: https://www.mailboxvalidator.com/plans#api
-        The free plan includes 300 queries per month
+        /**
+         * Get API key here: https://www.mailboxvalidator.com/plans#api
+         * The free plan includes 300 queries per month
          */
         val res: HttpResponse
         val data: JsonObject
