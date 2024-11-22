@@ -7,10 +7,16 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.utils.io.*
+import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
 import org.jetbrains.annotations.TestOnly
 import java.net.Socket
+import java.security.MessageDigest
+import kotlin.io.use
 import kotlin.text.StringBuilder
+import kotlin.text.toByteArray
 
 class Email(var email: String) {
     init {
@@ -37,6 +43,28 @@ class Email(var email: String) {
             }
         }
         return foundPort != null
+    }
+
+    private fun String.sha256(): String {
+        return MessageDigest
+            .getInstance("SHA-256")
+            .digest(this.toByteArray())
+            .fold("", { str, it -> str + "%02x".format(it) })
+    }
+
+    private fun hash(plaintext: String): String {
+        return ("databreach.com-" + plaintext.lowercase()).sha256().slice(0..27)
+    }
+
+    private suspend fun ByteReadChannel.toHex(): String {
+        val builder = StringBuilder()
+        while (!this.isClosedForRead) {
+            val packet = this.readRemaining(DEFAULT_BUFFER_SIZE.toLong())
+            packet.readBytes().forEach { byte ->
+                builder.append(byte.toInt().and(0xFF).toString(16).padStart(2, '0'))
+            }
+        }
+        return builder.toString()
     }
 
     fun Reacher(): MutableMap<String, Any?> {
@@ -153,14 +181,89 @@ class Email(var email: String) {
             throw IllegalArgumentException("Key was not valid")
         }
     }
+
+    fun HaveIBeenPwned(): Array<String> {
+        val hashed = hash("email:$email")
+        val res: HttpResponse
+        val data: String
+        runBlocking {
+            val client = HttpClient(CIO)
+            res = client.get("https://hashes.databreach.com/v2/${hashed.slice(0..4)}") {
+                headers {
+                    append(HttpHeaders.Accept, "*/*")
+                    append(HttpHeaders.AcceptLanguage, "en-US,en;q=0.9")
+                    append("dnt", "1")
+                    append(HttpHeaders.Origin, "https://databreach.com")
+                    append("Priority", "u=1, i")
+                    append(HttpHeaders.Referrer, "https://databreach.com/")
+                    append("sec-ch-ua", "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"")
+                    append("sec-ch-ua-mobile", "?0")
+                    append("sec-ch-ua-platform", "\"Windows\"")
+                    append("sec-fetch-dest", "empty")
+                    append("sec-fetch-mode", "cors")
+                    append("sec-fetch-site", "same-site")
+                    append(HttpHeaders.UserAgent, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+                }
+            }
+            data = res.bodyAsChannel().toHex()
+        }
+
+        val lookFor = "0" + hashed.slice(5..27)
+        var index = 0
+        var done = false
+        var foundInts = arrayOf<Int>()
+        while (!done) {
+            val find = data.findAnyOf(listOf(lookFor), index + 1)
+            if (find == null) {
+                done = true
+            } else {
+                foundInts += data.slice(find.first + lookFor.length..find.first + lookFor.length + 3).toInt(16)
+                index = find.first
+            }
+        }
+
+        // get the link of breach.js (which is now card.js as of coding??)
+        val indexHTML: HttpResponse
+        val indexHTMLBody: String
+        val indexJS: HttpResponse
+        val indexJSBody: String
+        val cardJS: HttpResponse
+        val cardJSBody: String
+        runBlocking {
+            val client = HttpClient(CIO)
+
+            indexHTML = client.get("https://databreach.com/")
+            indexHTMLBody = indexHTML.body()
+
+            var importIndex = indexHTMLBody.findAnyOf(listOf("import * as route1 from \"/assets/index"))
+            val indexJSURL = indexHTMLBody.slice(importIndex!!.first + "import * as route1 from \"".length..<indexHTMLBody.findAnyOf(listOf("\";"), importIndex.first)!!.first)
+            indexJS = client.get("https://databreach.com$indexJSURL")
+            indexJSBody = indexJS.body()
+
+            importIndex = indexJSBody.findAnyOf(listOf("from\"./card-"))
+            val breachJSURL = indexJSBody.slice(importIndex!!.first + "from\".".length..<indexJSBody.findAnyOf(listOf("\";"), importIndex.first)!!.first)
+            cardJS = client.get("https://databreach.com/assets$breachJSURL")
+            cardJSBody = cardJS.body()
+        }
+
+        var found = arrayOf<String>()
+        for (i in foundInts) {
+            val startIndex = cardJSBody.findAnyOf(listOf(",$i:{", "{$i:{"))!!.first
+            found += cardJSBody.slice(startIndex + ",$i:".length..<cardJSBody.findAnyOf(listOf("icon:!0}"), startIndex)!!.first + "icon:!0}".length)
+        }
+
+        return found
+    }
 }
 
 //@TestOnly
 //fun main() {
 //    val email = "someone@gmail.com"
 //    val obj = Email(email)
-//    val final = obj.Reacher()
-//    println(final)
-//    val mbv = obj.MBoxValid(key = "ENTER_API_KEY_HERE")
-//    println(mbv.toString())
+////    val final = obj.Reacher()
+////    println(final)
+////    val mbv = obj.MBoxValid(key = "ENTER_API_KEY_HERE")
+////    println(mbv.toString())
+//    val hibp = obj.HaveIBeenPwned()
+//    println(hibp.toList())
 //}
