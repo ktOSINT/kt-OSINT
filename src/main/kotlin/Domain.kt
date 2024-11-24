@@ -103,10 +103,10 @@ class Domain(val domain: String) {
     }
 }
 
-@TestOnly
-fun main() {
-    val domain = "google.com"
-    val obj = Domain(domain)
-    val dossier = obj.Dossier()
-    println(dossier)
-}
+//@TestOnly
+//fun main() {
+//    val domain = "google.com"
+//    val obj = Domain(domain)
+//    val dossier = obj.Dossier()
+//    println(dossier)
+//}
