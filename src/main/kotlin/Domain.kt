@@ -5,12 +5,19 @@ import com.beust.klaxon.Parser
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.network.sockets.*
+import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
+import io.ktor.utils.io.errors.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import org.jetbrains.annotations.TestOnly
+import java.io.EOFException
+import java.nio.channels.UnresolvedAddressException
+import java.util.concurrent.CancellationException
 
 class Domain(val domain: String) {
     fun Dossier(): Map<String, Any?> {
@@ -101,6 +108,64 @@ class Domain(val domain: String) {
 
         return final.toMap()
     }
+
+    @Deprecated("This function is extremely slow and still pretty inaccurate. It is deprecated as of its launch but does technically work.")
+    fun XRay(loops: Int = 5): Array<String> {
+        var found = arrayOf<String>()
+        val wordlist: List<String>
+        runBlocking {
+            val client = HttpClient(CIO)
+            val res = client.get("https://github.com/evilsocket/xray/raw/refs/heads/master/wordlists/default.lst")
+            wordlist = res.body<String>().split("\n")
+        }
+
+
+        var c = 0
+
+
+        runBlocking {
+            withTimeoutOrNull(loops * 30000L) {
+                for (i in wordlist) {
+                    launch {
+                        var r = 0
+                        val link = "https://${i.removePrefix("#")}${if (i != "" && i != "#") "." else ""}$domain/"
+                        do {
+                            try {
+                                if (i == "*") { // this address makes no sense... its not valid syntax?? why is it in the wordlist
+                                    return@launch
+                                }
+
+                                val client = HttpClient(CIO)
+                                val res: HttpResponse
+                                res = client.get(link)
+
+                                if (!res.status.toString().startsWith("4")) {
+                                    r = 0
+                                    found += link
+                                }
+                            } catch (e: Exception) {
+                                if (e is UnresolvedAddressException || (e is IOException && "TLSException" in e.toString()) || e is EOFException || (e is IOException && "aborted by the software in your host machine" in e.toString()) || e is SendCountExceedException) {
+                                    c += 1
+                                    r = 0
+                                } else if (e is ConnectTimeoutException || e is HttpRequestTimeoutException || e is ClosedReceiveChannelException) {
+                                    r += 1
+                                } else if (e is CancellationException) {
+                                    return@launch
+                                } else {
+                                    println("exception caught: $e")
+                                }
+                            }
+                        } while (r in 1..<loops)
+                        c += 1
+                    }
+                }
+            }
+        }
+
+        println("checked $c addresses")
+
+        return found
+    }
 }
 
 //@TestOnly
@@ -109,4 +174,6 @@ class Domain(val domain: String) {
 //    val obj = Domain(domain)
 //    val dossier = obj.Dossier()
 //    println(dossier)
+//    val xray = obj.XRay()
+//    println(xray.toList())
 //}
