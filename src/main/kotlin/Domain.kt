@@ -166,6 +166,27 @@ class Domain(val domain: String) {
 
         return found
     }
+
+    fun Redirects(): List<String> {
+        var link = "http://$domain"
+        var status: Int
+        var redirs = arrayOf<String>()
+        do {
+            runBlocking {
+                val client = HttpClient(CIO) {
+                    followRedirects = false
+                }
+                val res = client.get(link)
+                status = res.status.value
+                redirs += link
+                if (status.toString().startsWith("3")) {
+                    link = res.headers["Location"]!!
+                }
+            }
+        } while (status.toString().startsWith("3"))
+
+        return redirs.toList()
+    }
 }
 
 //@TestOnly
@@ -176,4 +197,6 @@ class Domain(val domain: String) {
 //    println(dossier)
 //    val xray = obj.XRay()
 //    println(xray.toList())
+//    val redirects = obj.Redirects()
+//    println(redirects)
 //}
