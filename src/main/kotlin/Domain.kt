@@ -109,7 +109,7 @@ class Domain(val domain: String) {
         return final.toMap()
     }
 
-    @Deprecated("This function is extremely slow and still pretty inaccurate. It is deprecated as of its launch but does technically work.")
+    @Deprecated("Use Subdomains() instead as this function is extremely slow and still pretty inaccurate. It is deprecated as of its launch but does technically work.")
     fun XRay(loops: Int = 5): Array<String> {
         var found = arrayOf<String>()
         val wordlist: List<String>
@@ -187,6 +187,39 @@ class Domain(val domain: String) {
 
         return redirs.toList()
     }
+
+    fun Subdomains(): List<String> {
+        /*
+         * ONLY WORKS ON HTTPS DOMAINS!!
+         */
+
+        val found = mutableListOf<String>()
+
+        val body: String
+        runBlocking {
+            val res = HttpClient(CIO).get("https://crt.sh/") {
+                parameter("q", domain)
+            }
+            if (res.status.value == 502) {
+                println("ERROR 502: ${res.body<String>()}")
+            }
+            body = res.body()
+        }
+
+        var parts = body.split(Regex("($domain)(.{0,4})(</TD>|<BR>)"))
+        parts = parts.slice(0..<parts.size - 1)
+        for (i in parts) {
+            if ("@" in i) continue // take out emails
+            var subdomain = i
+            val index = i.findLastAnyOf(listOf("<TD>", "<TD class=\"outer\">"))
+            if (index == null) continue
+            if (index.second == "<TD class=\"outer\">") continue
+            if ("<TD>" in i) subdomain = i.slice(index.first..<i.length).removePrefix("<TD>")
+            if (subdomain + domain !in found) found += subdomain + domain
+        }
+
+        return found.toList()
+    }
 }
 
 //@TestOnly
@@ -199,4 +232,6 @@ class Domain(val domain: String) {
 //    println(xray.toList())
 //    val redirects = obj.Redirects()
 //    println(redirects)
+//    val subdomains = obj.Subdomains()
+//    println(subdomains)
 //}
