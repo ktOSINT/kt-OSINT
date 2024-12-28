@@ -226,25 +226,32 @@ class Domain(val domain: String) {
         return found.toList()
     }
 
-    fun Similar(): Pair<Map<String, String>, List<String>> {
+    fun Similar(timeout: Long = 60000L): Pair<Map<String, String>, List<String>> {
         var found = mutableMapOf<String, String>()
         var available = mutableListOf<String>()
         runBlocking {
-            val resp = HttpClient(CIO).get("https://dnstwister.report/api/to_hex/$domain")
-            val json = Parser.default().parse(StringBuilder(resp.body<String>())) as JsonObject
-            val next = json.string("fuzz_url")!!
-            val res = HttpClient(CIO).get(next)
-            val data = (Parser.default().parse(StringBuilder(res.body<String>())) as JsonObject).array<JsonObject>("fuzzy_domains")!!
-            for (i in data) {
-                launch {
-                    val test = HttpClient(CIO).get(i.string("resolve_ip_url")!!)
-                    val result = Parser.default().parse(StringBuilder(test.body<String>())) as JsonObject
-                    if (result["ip"] != false) {
-                        found += result.string("domain")!! to result.string("ip")!!
-                        println("found ${result.string("domain")!!}")
-                    } else {
-                        available += result.string("domain")!!
-                        println("did not find ${result.string("domain")!!}")
+            withTimeoutOrNull(timeout) {
+                val resp = HttpClient(CIO).get("https://dnstwister.report/api/to_hex/$domain")
+                val json = Parser.default().parse(StringBuilder(resp.body<String>())) as JsonObject
+                val next = json.string("fuzz_url")!!
+                val res = HttpClient(CIO).get(next)
+                val data = (Parser.default()
+                    .parse(StringBuilder(res.body<String>())) as JsonObject).array<JsonObject>("fuzzy_domains")!!
+                for (i in data) {
+                    launch {
+                        try {
+                            val test = HttpClient(CIO).get(i.string("resolve_ip_url")!!)
+                            val result = Parser.default().parse(StringBuilder(test.body<String>())) as JsonObject
+                            if (result["ip"] != false) {
+                                found += result.string("domain")!! to result.string("ip")!!
+                            } else {
+                                available += result.string("domain")!!
+                            }
+                        } catch (e: Exception) {
+                            if (e is EOFException || e is IOException) {
+                                return@launch
+                            }
+                        }
                     }
                 }
             }
@@ -255,7 +262,7 @@ class Domain(val domain: String) {
 
 //@TestOnly
 //fun main() {
-//    val domain = "google.com"
+//    val domain = "firegamesite.com"
 //    val obj = Domain(domain)
 //    val dossier = obj.Dossier()
 //    println(dossier)
