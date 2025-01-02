@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.ktosint"
-version = "0.9.1"
+version = "0.10.0"
 
 repositories {
     mavenCentral()
