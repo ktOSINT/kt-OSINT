@@ -40,11 +40,11 @@ class IP (val ip: String) {
     }
 }
 
-@TestOnly
-fun main() {
-    var ip = "9.9.9.9"
-//    ip = "8.8.8.8"
-    val obj = IP(ip)
-    val location = obj.Locate()
-    println(location)
-}
+//@TestOnly
+//fun main() {
+//    var ip = "9.9.9.9"
+////    ip = "8.8.8.8"
+//    val obj = IP(ip)
+//    val location = obj.Locate()
+//    println(location)
+//}
