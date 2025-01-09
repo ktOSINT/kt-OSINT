@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.ktosint"
-version = "0.10.1"
+version = "0.11.0"
 
 repositories {
     mavenCentral()
@@ -18,6 +18,7 @@ dependencies {
     implementation("com.beust:klaxon:5.5")
     implementation("io.ktor:ktor-client-core:2.3.12")
     implementation("io.ktor:ktor-client-cio:2.3.12")
+    implementation("org.jsoup:jsoup:1.16.1")
 }
 
 kotlin {

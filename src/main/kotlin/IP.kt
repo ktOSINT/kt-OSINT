@@ -6,6 +6,8 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.annotations.TestOnly
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 class IP (val ip: String) {
     fun Locate(): Map<String, String> {
@@ -38,6 +40,73 @@ class IP (val ip: String) {
             "coordinates" to coordinates
         )
     }
+
+    fun Shodan(): Map<String, Any?> {
+        var hostname = "Unknown"
+        var country = "Unknown"
+        var city = "Unknown"
+        var organization = "Unknown"
+        var isp = "Unknown"
+        var asn = "Unknown"
+        var lastSeen = "Unknown"
+        var tags: List<String>? = null
+        var openPorts = mutableMapOf<Int, String>()
+
+        val doc: Document = Jsoup.connect("https://www.shodan.io/host/$ip").get()
+
+        val td = doc.getElementsByTag("td")
+        for (i in td) {
+            if (i.text() == "Hostnames") {
+                hostname = i.parent()!!.allElements[2].text()
+            } else if (i.text() == "Country") {
+                country = i.parent()!!.allElements[2].text()
+            } else if (i.text() == "City") {
+                city = i.parent()!!.allElements[2].text()
+            } else if (i.text() == "Organization") {
+                organization = i.parent()!!.allElements[2].text()
+            } else if (i.text() == "ISP") {
+                isp = i.parent()!!.allElements[2].text()
+            } else if (i.text() == "ASN") {
+                asn = i.parent()!!.allElements[2].text()
+            }
+        }
+
+        val gridHeading = doc.getElementsByClass("grid-heading")
+        for (i in gridHeading) {
+            if (i.text().startsWith("Last Seen:")) {
+                lastSeen = i.text().split(": ")[1]
+            } else if (i.text() == "Tags:") {
+                val elements = i.parent()!!.allElements
+                var texts = mutableListOf<String>()
+                for (el in elements.slice(3..<elements.size)) {
+                    texts += el.text()
+                }
+                tags = texts.toList()
+            }
+        }
+
+        val portsList = doc.getElementById("ports")!!.children()
+        for (i in portsList) {
+            val port = i.text()
+            val h6 = doc.getElementById(port)
+                ?: continue
+            val parent = h6.parent()!!.allElements
+            val text = parent.select("pre")[portsList.indexOf(i) * 2 + 1].text()
+            openPorts += port.toInt() to text
+        }
+
+        return mapOf(
+            "hostname" to hostname,
+            "country" to country,
+            "city" to city,
+            "organization" to organization,
+            "isp" to isp,
+            "asn" to asn,
+            "last-seen" to lastSeen,
+            "tags" to tags,
+            "open-ports" to openPorts.toMap()
+        )
+    }
 }
 
 //@TestOnly
@@ -47,4 +116,6 @@ class IP (val ip: String) {
 //    val obj = IP(ip)
 //    val location = obj.Locate()
 //    println(location)
+//    val shodan = obj.Shodan()
+//    println(shodan)
 //}
